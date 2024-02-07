@@ -1,0 +1,145 @@
+@import './src/styles/styles.scss';
+
+
+@mixin menu-item-child() {
+    $width: 40px;
+
+    .item_el {
+        background-color: $light-white;
+        border-radius: 50%;
+        
+        min-width: $width;
+        max-width: $width;
+        width: $width;
+        height: $width;
+
+        @include flex-stretch(1);
+    }
+
+    .item_text {
+        margin-left: 10%;
+        text-align: left;
+
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        @include flex-stretch(3);
+    }
+}
+
+@mixin width-main() {
+    width: 15%;
+    min-width: 15%;
+}
+
+@mixin width-medium($active: false) {
+    width: 0;
+    left: -30%;
+
+    @if $active {
+        width: 30%;
+        left: 0;
+    }
+}
+
+.main-container {
+    position: inherit;
+    height: auto;
+    min-height: 90vh;
+
+    @include flex-row();
+
+    .menu {
+        @include width-main();
+
+        #close {
+            @include font();
+            display: none;
+
+            cursor: pointer;
+            position: absolute;
+            top: $padding;
+            right: calc($padding * 2);
+        }
+
+        @media (max-width: 1023px) {
+            @include width-medium();
+            overflow: scroll;
+
+            transition: all 0.3s ease-in-out;
+
+            position: fixed;
+            z-index: 3;
+            height: 100vh;
+            background-color: $pink;
+
+            &.active {
+                @include width-medium(true);
+            }
+
+            #close {
+                display: block;
+            }
+        }
+
+        @media (min-width: 0px) and (max-width: 639px) {
+
+            &.active {
+                width: 100%;
+                height: 100%;
+                overflow: scroll;
+
+                padding-left: 5%;
+                padding-right: 5%;
+            }
+        }
+
+        border-right: $border;
+        padding: $padding;
+
+        padding-top: calc($menu-height + $padding - 2px);
+
+        @include flex-column();
+        @include flex-justify();
+
+        .item {
+            width: 100%;
+            height: $menu-height;
+
+            padding: 5% 10%;
+
+            border-radius: $border-radius;
+            cursor: pointer;
+
+            @include flex-row();
+            @include flex-justify();
+
+            @include color();
+
+            &:hover {
+                @include color(true);
+
+                transform: scale(1.05);
+                transition: all .3s ease-in-out;
+            }
+
+            &:not(.first) {
+                margin-top: 1rem;
+            }
+
+            @include menu-item-child();
+        }
+    }
+}
+
+.footer {
+    height: auto;
+    min-height: 10vh;
+    padding: $padding;
+    border-top: $border;
+    text-align: left;
+
+    background-color: $pink;
+    cursor: default;
+}
