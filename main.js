@@ -3,7 +3,7 @@ import './src/styles/menu.scss'
 import './src/styles/styles.scss'
 import './src/styles/body.scss'
 
-let viewPort;
+let viewPort; 
 
 const hamburger = document.querySelector('.hamburger'),
   menuContainer = document.querySelector('#_menu');
@@ -35,7 +35,7 @@ window.onresize = () => {
   resetElements();
 }
 
-window.addEventListener("click", function (event) {
+document.addEventListener("click", function (event) {
   if (event.target.id == 'close') {
     toggleMenu();
   }
